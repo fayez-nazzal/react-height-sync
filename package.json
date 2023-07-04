@@ -81,8 +81,8 @@
     "side-by-side"
   ],
   "author": "Fayez Nazzal",
-  "repository": "https://github.com/fayez-nazzal/@react/height-sync",
-  "bugs": "https://github.com/fayez-nazzal/@react/height-sync/issues",
+  "repository": "https://github.com/fayez-nazzal/-height-sync-react",
+  "bugs": "https://github.com/fayez-nazzal/-height-sync-react/issues",
   "publishConfig": {
     "access": "public"
   }
