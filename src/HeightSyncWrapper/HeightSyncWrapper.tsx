@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
+import React from "react";
 
 type SyncContextType = {
   registerItem: (item: React.RefObject<HTMLDivElement>[]) => void;
@@ -6,7 +6,7 @@ type SyncContextType = {
   syncScroll: ((scrollTop: number) => void) | null;
 };
 
-export const SyncContext = createContext<SyncContextType>({
+export const SyncContext = React.createContext<SyncContextType>({
   registerItem: () => {},
   unregisterItem: () => {},
   syncScroll: null,
@@ -21,8 +21,10 @@ const HeightSyncWrapper: React.FC<HeightSyncWrapperProps> = ({
   children,
   syncScroll,
 }) => {
-  const [items, setItems] = useState<React.RefObject<HTMLDivElement>[][]>([]);
-  const [scrollTop, setScrollTop] = useState(0);
+  const [items, setItems] = React.useState<React.RefObject<HTMLDivElement>[][]>(
+    []
+  );
+  const [scrollTop, setScrollTop] = React.useState(0);
 
   const registerItem = (item: React.RefObject<HTMLDivElement>[]) => {
     setItems((prevItems) => [...prevItems, item]);
@@ -32,7 +34,7 @@ const HeightSyncWrapper: React.FC<HeightSyncWrapperProps> = ({
     setItems((prevItems) => prevItems.filter((i) => i !== item));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const maxHeights =
       items[0]?.map((_, i) =>
         Math.max(...items.map((item) => item[i]?.current?.offsetHeight || 0))
@@ -46,7 +48,7 @@ const HeightSyncWrapper: React.FC<HeightSyncWrapperProps> = ({
     }
   }, [items]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     for (const itemRefs of items) {
       for (const ref of itemRefs) {
         ref.current.scrollTop = scrollTop;

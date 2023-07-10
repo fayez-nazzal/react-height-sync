@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext, cloneElement } from "react";
+import React from "react";
 import { SyncContext } from "../HeightSyncWrapper";
 
 const HeightSyncItem = ({
@@ -8,10 +8,13 @@ const HeightSyncItem = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  const itemRefs = (children as any[]).map(() => useRef<HTMLDivElement>(null));
-  const { registerItem, syncScroll, unregisterItem } = useContext(SyncContext);
+  const itemRefs = (children as any[]).map(() =>
+    React.useRef<HTMLDivElement>(null)
+  );
+  const { registerItem, syncScroll, unregisterItem } =
+    React.useContext(SyncContext);
 
-  useEffect(() => {
+  React.useEffect(() => {
     registerItem(itemRefs);
     return () => unregisterItem(itemRefs);
   }, []);
@@ -25,7 +28,7 @@ const HeightSyncItem = ({
       className={className}
     >
       {(children as any[]).map((child, index) =>
-        cloneElement(child, { ref: itemRefs[index] })
+        React.cloneElement(child, { ref: itemRefs[index] })
       )}
     </div>
   );
