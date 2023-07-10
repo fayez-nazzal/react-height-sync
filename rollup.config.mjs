@@ -11,21 +11,13 @@ import url from "rollup-plugin-url";
 import svgr from "@svgr/rollup";
 import json from "@rollup/plugin-json";
 
-import packageJson from "./package.json" assert {
-  type: 'json',
-  integrity: 'sha384-ABC123'
-};
+import packageJson from "./package.json" assert { type: "json", integrity: "sha384-ABC123" };
 
 export default {
   input: "src/index.ts",
   output: [
     {
       file: packageJson.main,
-      format: "cjs",
-      sourcemap: true,
-    },
-    {
-      file: packageJson.module,
       format: "esm",
       sourcemap: true,
     },
@@ -37,18 +29,15 @@ export default {
     // if you want to also exculde dependencies, change deps to true
     externals({ deps: false, devDeps: true, peerDeps: true }),
     resolve(),
-    commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
     babel({
       babelHelpers: "runtime",
       exclude: "**/node_modules/**",
-      extensions: [".js", ".jsx", ".ts", ".tsx"],
+      extensions: [".ts", ".tsx"],
     }),
     postcss(),
     terser(),
     analyze(),
-    url(),
-    svgr(),
     json(),
   ],
 };
